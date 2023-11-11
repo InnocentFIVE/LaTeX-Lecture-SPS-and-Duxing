@@ -1,0 +1,217 @@
+\documentclass[fontset=fandol,punct=kaiming]{ctexbeamer}
+\usetheme{xiaoshan}
+\usepackage{graphicx}
+\usepackage{tabularray}
+\usepackage{tcolorbox}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{physics}
+\usepackage{fixdif}
+\usepackage{%
+datetime2,
+fdulogo,
+fontawesome5,
+hologo,
+listings,
+multicol,
+qrcode,
+ragged2e,
+siunitx,
+xeCJKfntef,
+unicode-math
+}
+\usepackage{unicode-math}
+\usepackage{tikz}
+\usetikzlibrary{decorations,decorations.markings}
+
+\makeatletter
+
+\DeclareRobustCommand{\LaTeX}{L\kern-.3em\raisebox{.2em}{\textsc{a}}\kern-.14em\TeX}
+
+\DeclareRobustCommand{\LaTeXe}{%
+\LaTeX\kern.15em2%
+\hbox{%
+\if b\expandafter\@car\f@series\@nil
+$_{\textstyle\symbf{\varepsilon}}$%
+\else
+$_{\textstyle\varepsilon}$%
+\fi}}
+\newcommand \given{}
+\newcommand \setskip{\mathchoice{\,}{\,}{\mkern1mu}{\mkern1mu}}
+\newcommand \SetSymbol[1][]{%
+\mkern1mu\nonscript\setskip#1\vert
+\allowbreak
+\nonscript\setskip\mkern1mu
+\mathopen{}}
+\DeclarePairedDelimiterX\@set[1]{\{}{\}}%
+{\renewcommand\given{\SetSymbol[\delimsize]}%
+\setskip#1\setskip\mathopen{}}
+\DeclareDocumentCommand{\@set@nostar}{O{}O{\mathchoice{\,}{\,}{\mkern1mu}{\mkern1mu}}m}{%
+\renewcommand{\setskip}{#2}\@set[#1]{#3}}
+\DeclareDocumentCommand{\@set@star}{O{\mathchoice{\,}{\,}{\mkern1mu}{\mkern1mu}}m}{%
+\renewcommand{\setskip}{#1}\@set∗{#2}}
+\newcommand\set{\@ifstar\@set@star\@set@nostar}
+\mode<presentation>
+\setbeamercolor{frametitle}{parent=palette primary}
+\setbeamercolor{subsection in head/foot}{parent=palette secondary}
+\setbeamercolor{section in head/foot}{parent=palette quaternary}
+
+\setbeamertemplate{footline}
+{\leavevmode%
+\hbox{%
+\begin{beamercolorbox}[wd=.7\paperwidth,ht=2.5ex,dp=1ex]{section in head/foot}%
+\usebeamerfont{section in head/foot}\insertsectionnavigationhorizontal{.7\paperwidth}{}{}
+\end{beamercolorbox}
+\begin{beamercolorbox}[wd=.3\paperwidth,ht=2.5ex,dp=1ex,leftskip=2ex,rightskip=2ex,sep=0pt]{section in head/foot}%
+\hfill%
+\usebeamerfont{section in head/foot}
+\usebeamertemplate*{frame numbering}
+\end{beamercolorbox}}}
+
+\definecolor{def}{HTML}{000000}
+\definecolor{pri}{HTML}{0F4C75}
+\definecolor{sec}{HTML}{3282B8}
+% \definecolor{ter}{HTML}{BBE1FA}
+\definecolor{ale}{HTML}{FF4E27}
+
+\setbeamercolor{title}{fg=黑色}
+\setbeamercolor{title separator}{fg=靛蓝}
+\setbeamercolor{author}{fg=靛青}
+\setbeamercolor{institute}{fg=靛青}
+\setbeamercolor{date}{fg=靛青}
+
+\setbeamercolor*{palette primary}{fg=white,bg=pri}
+\setbeamercolor*{palette secondary}{fg=white,bg=靛蓝}
+\setbeamercolor*{palette tertiary}{fg=海棠红,bg=ter}
+
+\setbeamercolor{alerted text}{fg=ale}
+\setbeamercolor*{block title}{bg=pri!30!white}
+
+\mode<all>
+
+
+\setCJKmainfont{FZBIAOYSK.TTF}[
+    ItalicFont = HYKaiTi_GB18030Super.ttf,
+    BoldFont = FZZCYSJW.TTF,
+    StylisticSet=1,
+]
+\setmainfont{MinionPro}[
+    Extension = .otf,
+    Ligatures={TeX, Common},
+    Numbers={OldStyle, Proportional},
+    UprightFont = *-regular,
+    ItalicFont = *-It,
+    BoldFont = *-Semibold,
+    Kerning=On,
+    SizeFeatures = {
+        {Size = -6, Font = *-capt, BoldFont = *-Semiboldcapt},
+        {Size = 6-8.4, Font = *-regular, BoldFont = *-Semiboldregular},
+        {Size = 8.4-12, Font = *-subh, BoldFont = *-Semiboldsubh},
+        {Size = 12-, Font = *-disp, BoldFont = *-Semibolddisp}
+    },
+    SlantedFeatures = {Font = *-regular, FakeSlant = .15},
+    BoldSlantedFeatures = {*-Semibold, FakeSlant = .15}
+]
+\setsansfont{Alegreya Sans Light}
+\setCJKsansfont[Scale = MatchUppercase]{Noto Sans CJK SC Light}
+
+
+\setmathfont{MinionMath-Subh.otf}
+[   
+    SizeFeatures = {
+        {Size = -6, Font = MinionMath-capt.otf,
+        Style = MathScriptScript},
+        {Size = 6-8.4, Font = MinionMath-regular.otf,
+        Style = MathScript},
+        {Size = 8.4-12, Font = MinionMath-Subh,
+        Style = MathScript},
+        {Size = 12-, Font = MinionMath-Disp.otf},
+},
+]
+\setmathfont[version = bold]{MinionMath-Bold.otf}
+[   
+    SizeFeatures = {
+        {Size = -6, Font = MinionMath-Bold.otf,
+        Style = MathScriptScript},
+        {Size = 6-8.4, Font = MinionMath-Bold.otf,
+        Style = MathScript},
+        {Size = 8.4-13, Font = MinionMath-Bold,
+        Style = MathScript},
+        {Size = 13-, Font = MinionMath-BoldSubh.otf},
+    },
+]
+\setmathfont[range={up/Greek,"2211, "220F,cal}]{euler.otf}
+\setmathfont[range={bfsfit/{greek, Greek},frak,scr}]{Garamond-Math.otf}
+\setmathfont[range={"222B,"222C,"222D},StylisticSet ={7,9}]{Garamond-Math.otf}
+\setmathfont[range={}]{MinionMath-Regular.otf}
+
+
+\DeclareGraphicsExtensions{.eps,.ps,.jpg,.bmp,.png}
+
+
+\title{实用主义家用 \LaTeX{} 入门}
+\subtitle{\LaTeX{} \textit{for} Pragmatists}
+\author{Innocent, Panadol}
+\date{\today}
+\titlegraphic{\qrcode[hyperlink, height=1.6cm]{https://github.com/InnocentFIVE/LaTeX-Lecture-SPS-and-Duxing}}
+
+\usefonttheme{serif,professionalfonts}
+
+
+
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont*{subtitle}{size=\large, shape=\itshape}
+\setbeamerfont{section title}{size=\Large, series=\bfseries}
+\setbeamerfont{frametitle}{size=\small, series=\bfseries}
+\setbeamerfont{author}{series=\scshape}
+\setbeamerfont{caption}{size=\footnotesize, series=\bfseries}
+\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
+\setbeamerfont{footnote}{size=\tiny}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamertemplate{title}{%
+\raggedleft
+\linespread{1}%
+\inserttitle
+\hspace*{1.2cm}\par
+\vspace*{0.5em}}
+\setbeamertemplate{subtitle}{%
+\raggedleft
+\insertsubtitle
+\hspace*{1.2cm}\par
+\vspace*{0.5em}}
+\setbeamertemplate{title page}{%
+\begin{minipage}[b]{\textwidth}
+\usebeamertemplate*{title graphic}
+\usebeamertemplate*{title}
+\usebeamertemplate*{subtitle}
+\usebeamertemplate*{title separator}
+\usebeamertemplate*{author}
+\usebeamertemplate*{date}
+\usebeamertemplate*{institute}
+\vfill
+\end{minipage}}
+\setbeamertemplate{title graphic}{%
+\vbox to 0pt {\smash{\raisebox{-128pt}{\inserttitlegraphic}}}%
+\nointerlineskip}
+\setbeamertemplate{frame numbering}{\zhnumber[style=Financial]{\insertframenumber}}
+\setbeamertemplate{caption}{\parbox{\textwidth}{\centering\insertcaption}\par}
+\setbeamertemplate{bibliography item}[text]
+
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{section in toc}{{\kern\ccwd\sffamily\inserttocsection}\par}
+
+
+\setlist[itemize]{label = $\bullet$}
+
+\begin{document}
+\maketitle
+\makeatletter
+
+\begin{frame}
+
+\end{frame}
+
+\end{document}
+
+
