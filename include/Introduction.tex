@@ -1,0 +1,106 @@
+\section{安装}
+
+\begin{frame}[standout]
+	真的要安装吗？
+
+	\textcolor[HTML]{42AC47}{overleaf} 与 \textcolor[HTML]{A93529}{ShareLaTeX}
+
+	\includegraphics[width=.7\textwidth]{images/ol_plus_sl.png}
+
+	\pause\small\mdseries 对于免费版使用者的限制见 \link{https://www.overleaf.com/learn/how-to/Overleaf_plan_limits}（比如$\qty{20}{s}$编译时间？）
+	\nonumberfootnote{红配绿，那啥……}
+\end{frame}
+
+\begin{frame}{或者}
+	\begin{itemize}
+		\item<+-> 越来越多的用户正在使用的 TeXPage（对中文的支持更好些，产品定价 \link{https://www.texpage.com/pricing}）：
+			\begin{center}
+				\includegraphics[width=.8\textwidth]{images/editor-users.png}
+			\end{center}
+		\item<+-> 合理的建议：先不要急着安装，用用在线平台试试手；
+		\item<+-> 以上这些云端部署的情形可以免去安装、升级等一系列烦恼，更方便多人协作，如果你是本地人的话……
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{请选择你的发行版}
+	\begin{itemize}
+		\item 发行版是引擎$+$宏包$+$字体$+$文档$+$各种各样的东西……
+		\item 也就是“全家桶”．
+	\end{itemize}
+	\medskip
+	\begin{columns}[t]
+		\pause
+		\begin{column}{.3\textwidth}
+			\huge\TeX{}~live\small
+			\begin{itemize}
+				\item \faWindows~\faApple~\faLinux
+				\item 官方维护，居家必备；
+				\item 不方便出门携带（指安装包体积很大）；
+				\item 每年都要更新．
+			\end{itemize}
+		\end{column}
+		\pause
+		\begin{column}{.3\textwidth}
+			\huge MiK\TeX\small
+			\begin{itemize}
+				\item \faWindows~\faApple~\faLinux
+				\item 宏包可以等到要用的时候再装；
+				\item 安装宏包时可能卡网络问题．
+			\end{itemize}
+		\end{column}
+		\pause
+		\begin{column}{.35\textwidth}
+			\huge \CTeX\small
+			\begin{itemize}
+				\item \faWindows
+				\item 2022年，吴凌云提交了 \CTeX{} 的更新，所以现在也许能用，但暂不推荐；
+				\item 处理历史文档或投稿部分国内期刊时可以考虑使用．
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\pause\tiny Tiny\TeX{}：字面意思上地，是\TeX{}~live的微缩版，假设用户不惧怕或反感使用命令行．
+\end{frame}
+
+
+\begin{frame}{专武}
+    \DifficultyOfEditor{2}{Easy}{TeXWorks \& \TeX{}~Studio}{开箱即用，专为\TeX{}使用者定制．}\pause
+    \DifficultyOfEditor{4}{Normal}{Visual Studio Code}{最新最热的代码编辑器（之一）．}\pause
+    \DifficultyOfEditor{6}{Hard}{Vim}{获得乱码的最好方式是打开Vim直到保存退出．}\pause
+    \DifficultyOfEditor{8}{Lunatic}{针}{小心出国杳无音讯．}
+	\nonumberfootnote{编辑器全明星大战：\link{https://en.wikipedia.org/wiki/Comparison_of_TeX_editors}}
+\end{frame}
+
+\begin{frame}{如何安装？}
+	\begin{itemize}
+		\item 就交给实操演示吧！\pause
+		      \begin{itemize}
+			      \item 没有发簪？可以看看清华（\link{https://mirrors.tuna.tsinghua.edu.cn/}）、上交（\link{https://mirrors.sjtug.sjtu.edu.cn/}）和中科大（\link{https://mirrors.tuna.tsinghua.edu.cn}）的镜像网．
+		      \end{itemize}\pause
+		\item 或者……不惧怕命令行读者的教程~\link{https://github.com/OsbertWang/install-latex-guide-zh-cn}
+	\end{itemize}
+	\pause
+	\begin{axiom}[安装路径]
+		路径尽量不要用中文、空格、特殊符号．
+	\end{axiom}
+\end{frame}
+
+
+\begin{frame}{开箱}
+	\begin{theorem}[命令行]
+		很多人都不想看到命令行．
+	\end{theorem}
+	\pause
+	\begin{proof}
+		已由~\raisebox{-.3ex}{\simpleicon{cplusplus}}~证明，我们会将命令行的部分放到最后面．需要注意的是，编译的选项很多，远不是一个~\faPlay~能够涵盖的．
+	\end{proof}
+	\pause
+	我们在此暂时忽略易混淆的引擎、格式之类，仅仅列举现今最常用的几种\TeX{}程序对比：\pause
+	\begin{itemize}
+		\item \pdfLaTeX：不直接支持Unicode，但是支持micro-typography；
+		\item \XeLaTeX：支持Unicode和OpenType，目前中文社区的通用程序；
+		\item \LuaLaTeX：支持Unicode和OpenType，内联Lua．
+	\end{itemize}
+\end{frame}
+
+

@@ -1,0 +1,197 @@
+\sectionwithabstract{从零}[\NotoSerifCJKTC 萬物是藉著他造的；凡被造的，沒有一樣不是藉著他造的．\\\mbox{}\hfill ---\textsc{John 1:3}. \emph{The Word Became Flesh}%
+]
+
+\begin{frame}{实用主义者的自白}
+	\pause 在一切一切开始之前……我们用最简洁的方式来介绍 \LaTeX{}，我们将会：\pause
+	\begin{itemize}
+		\item<+-> 给出写出一篇（最基本的）文档的方法，将更具体的\LaTeX{}特性阐释后置；
+		\item<+-> 也许你会说：“\alert{我还不知道\LaTeX{}怎么下载呢！}”别急，我们将会使用在线的 TeXPage；
+		\item<+-> 在这个阶段，我说的话可能是有失偏颇的……但说得太多可能会引发初学者的畏难情绪，而这在一开始是没有必要的；
+		\item<+-> 总而言之，先让它动起来再说．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{简要的介绍}
+    \begin{itemize}
+        \item<+-> \LaTeX{} 是什么？
+        \begin{itemize}
+            \item<+-> 粗略来说，是 Leslie Lamport 对 \TeX{} 的一种封装；
+            \item<+-> “排版公式很厉害且写论文 / 提交作业要用的”的排版系统；
+            \item<+-> 从嘴里说出来时，\LaTeX{}（大概）是\TeX{}、\LaTeX{}内核、文档类、宏包的总称；
+            \item<+-> \LaTeX{} 语法是数学家之间的交流方式．
+        \end{itemize}
+        \item<+-> \TeX{} 是什么？
+        \begin{itemize}
+            \item<+-> Donald~E.\ Knuth 和他的学生开发的排版文字和数学公式而开发的排版引擎；
+            \item<+-> \LaTeX{} 的底层，真正负责排版的东西．
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[t,fragile]{演示：\LaTeX{}，启动！}
+    按照惯例，我们先来给出我们的第一篇文档（还有最基本的中英混排的例子）．\pause 
+	\input{include/verb/Article.tex}\pause 
+    \begin{itemize}
+        \item<+-> 其中，|\documentclass| 是一个控制序列，|{article}| 是其的一个必要参数，参数值是 |article|，表示调用 \pkg{article} 文档类．
+
+        \item<+-> 导言区是用来设置整篇文档的格式的，他们往往不会决定文档中输出的\alert{内容}．
+    
+        \item<+-> |\begin{document}| 与 |\end{document}| 之间的是最基本的 |document| 环境，用来填写主要内容的地方．
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{演示：中文支持}
+	\pause
+	先上最新最热的配置：\CTeX{} 宏集 $+$ \XeLaTeX{} 程序．如果你不清楚这两个名词意味着什么，请看下面的代码：\pause
+	\input{include/verb/Ctexart.tex}\pause
+	\begin{itemize}
+		\item<+-> \CTeX{} 宏集是面向中文排版的大框架，而并非是 \CTeX{} 套装，\pkg{ctexart} 是专为中文排版理过的 \pkg{article} 类；
+		\item<+-> \XeLaTeX{} 总体说来是一个编译工具，在 TeXPage 里，我们可以看到 \LuaLaTeX{}、\pdfLaTeX{} 等类似物，但对中文排版来说，\XeLaTeX{} 是最合适的；
+		\item<+-> 过于古典的方法可能会导致一些问题，比如「复制出乱码」．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{演示：数学公式（一）}
+	\pause
+	\begin{itemize}
+		\item<+-> 当我们第一次使用 \LaTeX{} 时，大抵上都是为了输入数学公式．
+		\item<+-> \LaTeX{} 上的数学环境可以分为两种：
+			\begin{itemize}
+				\item 行内模式（|$...$|）：$\mathfrak L^2(G) \cong \bigoplus_{\pi \in \widehat{G}}\mathcal E_\pi$;
+				\item 行间模式（|\[...\]| 或 |equation| 环境）：
+				      \[\mathcal B(\mathbb R) = \bigcup_{\xi<w_1}\symbf\Sigma_\xi^0(\mathbb R) = \bigcup_{\xi<w_1}\symbf\Delta_\xi^0(\mathbb R) = \bigcup_{\xi<w_1}\symbf\Pi_\xi^0(\mathbb R).\]
+			\end{itemize}
+		\item<+-> \pkg{amsmath} 宏包是科学文献写作的事实标准，最好始终调用：\onslide<+->
+			\input{include/verb/Amsmath.tex}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{演示：数学公式（二）}
+	\pause
+	\begin{itemize}
+		\item<+-> 括号．|()|、|[]|、|\{\}|．自动控制大小是 |\left...|、|\right...|：
+			\begin{columns}
+				\begin{column}{.55\textwidth}
+					\input{include/verb/Brace.tex}
+				\end{column}
+                \onslide<+->
+				\begin{column}{.4\textwidth}
+					\[
+						\left( \frac{1}{3} \right]
+						+\left\{ \frac{1}{x} \right\|^2
+					\]
+				\end{column}
+			\end{columns}
+		\item<+-> 上下标（|^{...}|、|_{...}|）、分式（|\frac{分子}{分母}|）、根式（|\sqrt[次数]{内容}|）：
+			\begin{columns}
+				\begin{column}{.55\textwidth}
+					\input{include/verb/Sqrt.tex}
+				\end{column}
+                \onslide<+->
+				\begin{column}{.4\textwidth}
+					\[\int_0^1 x^7 dx = \frac{1}{8} = \left( \frac{\sqrt[3]{8}}{2} \right) ^3.\]
+				\end{column}
+			\end{columns}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{演示：数学公式（三）}
+	\begin{itemize}
+		\item<+-> 矩阵．在调用 \pkg{amsmath} 宏包的情形下，使用 |pmatrix| 环境，其中 |&| 是分列，|\\| 是换行：
+	\end{itemize}
+	\begin{columns}
+		\begin{column}{.45\textwidth}
+			\input{include/verb/Matrix.tex}
+		\end{column}
+        \onslide<+->
+		\begin{column}{.45\textwidth}
+			\[
+				\begin{pmatrix}
+					1 & 0 & 0  & 0 \\
+					0 & 0 & −1 & 0 \\
+					0 & 1 & 0  & 0 \\
+					0 & 0 & 0  & 0 \\
+				\end{pmatrix}.
+			\]
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{演示：组织文本（一）}
+	\begin{itemize}
+		\item<+-> 节与段：|\section{...}|；小小节：|\subsection{...}|、段落：|\paragraph{...}|；
+		\item<+-> 定理与证明：\onslide<+->
+			\input{include/verb/Theorem.tex}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{演示：组织文本（二）}
+	\begin{itemize}
+		\item 列举环境：|itemize|、|enumerate|、|description|；\onslide<+->
+		      \input{include/verb/Itemize.tex}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{演示：图片}
+	\begin{columns}
+		\begin{column}{.58\textwidth}
+			\input{include/verb/Figure.tex}
+		\end{column}
+        \pause
+		\begin{column}{.4\textwidth}
+			\footnotesize
+			\begin{figure}
+				\centering
+				\includegraphics[width=4cm]{images/li-a-ling.jpg}
+				\caption{\figurename\thefigure: 李阿玲}
+				\label{fig:li-a-ling}
+			\end{figure}
+			尽可能用「如\figurename\autoref{fig:li-a-ling} 所示」这种语言而不是「见上图、下表」．
+		\end{column}
+	\end{columns}
+	\nonumberfootnote{图片来源：\link{https://www.zhihu.com/people/li-a-ling}}
+\end{frame}
+
+\begin{frame}{演示：表格}
+	\begin{columns}
+		\begin{column}{.6\textwidth}
+			\input{include/verb/Table.tex}
+		\end{column}
+        \pause
+		\begin{column}{.4\textwidth}
+			\begin{table}
+				\footnotesize
+				\centering
+				\caption{\tablename\thetable: The rough masses of some elementary \emph{(and not so elementary)} particles}
+				\begin{tblr}{lll}
+					\toprule
+					Particle        & Mass                                                       \\
+					\midrule
+					electron        & \qty{.5}{MeV}                                              \\
+					Muon            & \qty{100}{MeV}                                             \\
+					Pions           & \qty{140}{MeV}                                             \\
+					Proton, Neutron & \qty{1}{GeV}                                               \\
+					Tau             & \qty{2}{GeV}                                               \\
+					W, Z Bosons     & \qtyrange[range-phrase=--,range-units=single]{80}{90}{GeV} \\
+					Higgs Boson     & \qty{125}{GeV}                                             \\
+					\bottomrule
+				\end{tblr}
+			\end{table}
+		\end{column}
+	\end{columns}
+	\nonumberfootnote{数据来源：\textsc{David Tong.}~\emph{Quantum Field Theory}. \link{https://www.damtp.cam.ac.uk/user/tong/qft/qft.pdf}}
+\end{frame}
+
+\begin{frame}[fragile]{演示：参考文献（\BibTeX{}）}
+	\begin{itemize}
+		\item<1-> 先声明：\BibTeX{}是一个古典的方法，在这里使用它只是容易演示且资料丰富；
+		\item<1-> 先要有一个 |.bib| 文件；
+		\item<1-> |\bibliographystyle{...}|、|\cite{...}|、|\bibliography{...}|；
+		\item<2-> 文献的\BibTeX{}怎么找？（自己写？）
+		\item<3-> 想要输出所有文献但懒得引用？（|\nocite{*}|）．
+		\item<3-> \alert{要编译多次}，否则就等着爆 \textbf{[??]} 吧．
+	\end{itemize}\onslide<4->
+	\input{include/verb/Cite.tex}
+\end{frame}

@@ -1,0 +1,121 @@
+\sectionwithabstract{文档结构}[%
+内容与表现分离（\emph{separation} of content and presentation）原则的本意是「文档的实际内容、逻辑结构」与「文档呈现给读者的样式」是相互独立的．
+并且，「内容与样式分离」是一种通用的原则，而并非只属于 \LaTeX{}．%
+]
+
+\begin{frame}[fragile]{一个例子}
+	\input{include/verb/Spectral.tex}
+\end{frame}
+
+\begin{frame}[fragile]{The Spectral Theorem}
+	\addfontfeatures{RawFeature=-case}
+	If $\mu$ is a \textbf{projection-valued measure} on $(X, \Omega)$ with values in $\symsf B(\mathcal H)$, $\psi$ is an element of $\mathcal H$, then we can construct a positive real-valued measure $\mu_\psi$ from $\mu$ by setting $\mu_\psi(E) = \langle\psi, \mu(E)\psi\rangle$, for each measurable set $E$.
+
+	To motivate the following definition, consider integration of a \emph{bounded} measurable function $f$ against a projection-valued measure $\mu$. Since the integral is multiplicative and complex-conjugation of a function corresponds to adjoint of the operator, we have
+	\[
+		\biggl\Vert \Bigl(\int_X f \d \mu\Bigr)\psi \biggr\Vert^2 = \int_X \vert f\vert ^2 \d \mu_\psi.
+	\]
+	\nonumberfootnote{文本来源：\textsc{Brian C. Hall.}~\emph{Quantum Theory for
+			Mathematicians}.}
+\end{frame}
+
+\begin{frame}[fragile]{布局：从零（一）}
+	\LaTeX{} 给了我们这样一个机会去思考一篇文章里面到底有什么，事实上，简单的文章大概都会包含以下这些：\pause
+	\begin{itemize}
+		\item<+-> 标题．事实上包括标题还有作者的名字，日期，所属机构等等．或者更广泛地，扉页和版权页：|\title|, |\author|, |\date|, |\maketitle|；
+		\item<+-> 摘要、致谢与声明．与这些辅文类似的，还有序、前言之类：
+			|\begin{abstract}...\end{abstract}|；
+		\item<+-> 目录．|\tableofcontents|；
+		\item<+-> 你的正文．大致分 |\chapter|, |\section|, |\subsection|, |\paragraph| 等；
+		\item<+-> 参考文献．|\bibliography| 与 |\cite|．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{布局：从零（二）}
+	\begin{itemize}
+		\item<+-> 在真正写东西之前，了解自己需要写什么：\pkg{article}？\pkg{book}？亦或是只用来做极小测试的 \pkg{minimal}？在想清楚这点之后，我们就可以选取所需的\alert{文档类}了．
+		\item<+-> 文档类用 |\documentclass[选项]{名称}| 在引言区调用，三大标准类：
+			\begin{itemize}
+				\item \pkg{article}：用于科技论文、报告、说明文档等；
+				\item \pkg{report}：具有\alert{章节结构}，用于综述、长篇论文、简单书籍等；
+				\item \pkg{book}：包含章节结构和前言、正文、后记等结构．
+			\end{itemize}\onslide<+->
+			因此，\pkg{article} 没有定义 |\chapter| 命令合情合理．在科技论文中，如果要将文章分割成多个超大板块，可以用 |\part|．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{布局：文本标记}
+	\textbf{我要加粗}！\emph{我要楷体}！\textsf{我要黑体}\kern\ccwd 和\hfill 右对齐！我还要：
+	\centerline{\smash{居中中中中中}}
+	\rightline{——{\Large 甲}\small 方}\pause
+
+	\begin{itemize}
+		\item<+-> 如果不管格式与内容分离的原则（或者懒），可以用
+			\begin{itemize}
+				\item 粗体：|\textbf{...}|、|{\bfseries ...}|；
+				\item 黑体：|\textsf{...}|、|{\sffamily ...}|；
+				\item 意大利体（\emph{斜体}）：|\textit{...}|、|{\itshape ...}|；
+				\item 控制大小：|\tiny|、|\small|、|\normalsize|、|\large|、|\Huge|．
+			\end{itemize}
+		\item<+-> 但是为了避免别人诟病，你可以（新定义） |\keyword{...}| 代替 |\textbf{...}|、|\emph{...}| 代替 |\textit{...}|；
+		\item<+-> 折行是 |\\|，但这只是折行，分段用 |\par| 或者直接空行；
+		\item<+-> 居中可以用 |\centering| 和 |center| 环境．当然在一般的文献中，居中一般用于摘要，你也可以用 |abstract| 环境．
+	\end{itemize}
+\end{frame}
+
+\def\formto{ \raisebox{.18ex}{ $\to$ } }
+\begin{frame}{另一个例子}
+	\begin{block}{例子}
+		\includegraphics[width = \textwidth]{images/Theorem example.pdf}
+	\end{block}
+	\begin{itemize}
+		\item<+-> 粗体\formto
+		      「公理 1」\formto
+		      取消粗体\formto
+		      「(自然单位)」\formto
+		      粗体\formto
+		      句点\formto
+		      取消粗体\formto
+		      楷体（斜体）\formto
+		      「上帝曾言，」\formto
+		      公式开始\formto
+		      「$\hbar = c = 1$」\formto
+		      公式结束\formto
+		      句点；
+		\item<+-> 不应该思考「这一小块内容应该是加粗、倾斜、字号几何」等问题；
+		\item<+-> 这是「定理」\formto
+		      它的名字是「勾股定理」\formto
+		      它的内容是「设直角三角形……」\formto
+		      把它们分别放在正确环境中．
+        \item<+-> 如果写作的过程中会需要你不停调整格式，这意味着\CJKsout{你喜欢调整格式}你应该切换思考方式，写东西只需要一个框架，一切完工后再慢慢设计不迟．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{布局：浮动体不是\alert{不动体}}
+	\begin{itemize}
+		\item<+-> 动了吗？如动．\kern\ccwd ——古谚
+		\item<+-> 主要的浮动体是 |figure| 和 |table| 环境：
+			\begin{itemize}
+				\item 标题用 |\caption|；
+				\item 标签用 |\label|；
+				\item 引用用 |\ref| 或者 |\autoref| （需要 \pkg{hyperref} 宏包）；
+			\end{itemize}
+		\item<+-> 浮动体是会动的，\alert{故意的}．
+			\begin{itemize}
+				\item 治本型：不要用「上图下表」；
+				\item 眼不见心不烦型：先写文章，全部写完后再插图片；
+				\item 摆烂型：所有图片全部放最后面；
+				\item 实用主义型：不就是要个编号吗？我手动加上去就是了：\pkg{caption} 宏包．（不是很推荐）
+			\end{itemize}
+		\item<+-> 归根结底就是，\LaTeX{}是不会急的，所以请你也别急．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{布局：参考文献}
+	\begin{itemize}
+		\item 我们一开始给出了 \BibTeX{} 的大致使用方式，更现代的方法可以用 |biber| 后端配合 \pkg{biblatex} 宏包；
+		      \input{include/verb/Biblatex.tex}
+		      然后分多步编译：
+		      \input{include/verb/Xbxx.tex}
+	\end{itemize}
+\end{frame}

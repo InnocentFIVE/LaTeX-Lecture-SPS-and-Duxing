@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{从零}{3}{0}{1}
+\beamer@sectionintoc {2}{安装}{53}{0}{2}
+\beamer@sectionintoc {3}{数学公式}{76}{0}{3}
+\beamer@sectionintoc {4}{文档结构}{117}{0}{4}
+\beamer@sectionintoc {5}{Debugging}{143}{0}{5}
+\beamer@sectionintoc {6}{私货}{157}{0}{6}

@@ -1,33 +1,53 @@
-\documentclass[fontset=fandol,punct=kaiming]{ctexbeamer}
-\usetheme{xiaoshan}
+\special{dvipdfmx:config z 0}
+\documentclass[punct=CCT]{ctexbeamer}
+\xeCJKEditPunctStyle{CCT}{bound-punct-ratio=0.5}
 \usepackage{graphicx}
+
 \usepackage{tabularray}
 \usepackage{tcolorbox}
 \usepackage{mathtools}
-\usepackage{enumitem}
-\usepackage{physics}
 \usepackage{fixdif}
+\usepackage{tensor}
+\usepackage{cncolours}
+\usepackage{physics2}
+\usepackage{siunitx}
+\usepackage{codehigh}
+\usepackage{tikz-feynman}
+\usephysicsmodule{braket}
+\usepackage{twemojis}
+\tcbuselibrary{skins}
 \usepackage{%
-datetime2,
-fdulogo,
-fontawesome5,
-hologo,
-listings,
-multicol,
-qrcode,
-ragged2e,
-siunitx,
-xeCJKfntef,
-unicode-math
+    fontawesome5,
+    hologo,
+    bookmark,
+    listings,
+    multicol,
+    qrcode,
+    ragged2e,
+    siunitx,
+    xeCJKfntef,
+    unicode-math,
+    simpleicons
 }
+
 \usepackage{unicode-math}
 \usepackage{tikz}
+\UseTblrLibrary{booktabs}
+\ctexset{today=big}
+\usetheme[progressbar=frametitle, sectionpage = progressbar]{metropolis}
+
+
+
+% \usetheme{Xiaoshan}
+\usefonttheme{serif,professionalfonts}
 \usetikzlibrary{decorations,decorations.markings}
 
 \makeatletter
 
+\apptocmd{\beamer@@frametitle}{%
+  \only<1>{\expandafter\ifnum\insertcontinuationcount<2\relax
+    \bookmark[page=\the\c@page,level=4]{#1}\fi}}{}{}
 \DeclareRobustCommand{\LaTeX}{L\kern-.3em\raisebox{.2em}{\textsc{a}}\kern-.14em\TeX}
-
 \DeclareRobustCommand{\LaTeXe}{%
 \LaTeX\kern.15em2%
 \hbox{%
@@ -36,6 +56,7 @@ $_{\textstyle\symbf{\varepsilon}}$%
 \else
 $_{\textstyle\varepsilon}$%
 \fi}}
+
 \newcommand \given{}
 \newcommand \setskip{\mathchoice{\,}{\,}{\mkern1mu}{\mkern1mu}}
 \newcommand \SetSymbol[1][]{%
@@ -51,71 +72,73 @@ $_{\textstyle\varepsilon}$%
 \DeclareDocumentCommand{\@set@star}{O{\mathchoice{\,}{\,}{\mkern1mu}{\mkern1mu}}m}{%
 \renewcommand{\setskip}{#1}\@set∗{#2}}
 \newcommand\set{\@ifstar\@set@star\@set@nostar}
-\mode<presentation>
-\setbeamercolor{frametitle}{parent=palette primary}
-\setbeamercolor{subsection in head/foot}{parent=palette secondary}
-\setbeamercolor{section in head/foot}{parent=palette quaternary}
+\newcommand{\nonumberfootnote}[2][]{%
+  \let\thefootnote\relax
+  \footnotetext#1{\kern-.8\ccwd#2}}
+\renewcommand{\footnoterule}{}
+\newcommand\mathfontlist[1]{%
+    \begin{matrix}
+        \symup{#1}   & \symbf{#1}    & \symsf{#1}    & \symbfsf{#1}                          \\
+        #1           & \symbfit{#1}  & \symsfit{#1}  & \symbfsfit{#1}                        \\
+        \symcal{#1} & \symbfcal{#1} & \symbb{#1}    & \text{\mathversion{bold}$\symbb{#1}$} \\
+        \symscr{#1} & \symbfscr{#1} & \symfrak{#1} & \symbffrak{#1}
+    \end{matrix}%
+}
 
-\setbeamertemplate{footline}
-{\leavevmode%
-\hbox{%
-\begin{beamercolorbox}[wd=.7\paperwidth,ht=2.5ex,dp=1ex]{section in head/foot}%
-\usebeamerfont{section in head/foot}\insertsectionnavigationhorizontal{.7\paperwidth}{}{}
-\end{beamercolorbox}
-\begin{beamercolorbox}[wd=.3\paperwidth,ht=2.5ex,dp=1ex,leftskip=2ex,rightskip=2ex,sep=0pt]{section in head/foot}%
-\hfill%
-\usebeamerfont{section in head/foot}
-\usebeamertemplate*{frame numbering}
-\end{beamercolorbox}}}
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{%
+\par
+  \def\insertproofname{#1\@addpunct{.}}%
+  \pushQED{\qed}
+  \alert{\insertproofname} \hspace*{\fill} \\ \kaishu}
+{\popQED\par}
+\makeatother
 
-\definecolor{def}{HTML}{000000}
-\definecolor{pri}{HTML}{0F4C75}
-\definecolor{sec}{HTML}{3282B8}
+% \mode<presentation>
+% \setbeamercolor{frametitle}{parent=palette primary}
+% \setbeamercolor{subsection in head/foot}{parent=palette secondary}
+% \setbeamercolor{section in head/foot}{parent=palette quaternary}
+
+% \definecolor{def}{HTML}{000000}
+% \definecolor{pri}{HTML}{0F4C75}
+% \definecolor{sec}{HTML}{3282B8}
 % \definecolor{ter}{HTML}{BBE1FA}
-\definecolor{ale}{HTML}{FF4E27}
-
-\setbeamercolor{title}{fg=黑色}
-\setbeamercolor{title separator}{fg=靛蓝}
-\setbeamercolor{author}{fg=靛青}
-\setbeamercolor{institute}{fg=靛青}
-\setbeamercolor{date}{fg=靛青}
-
-\setbeamercolor*{palette primary}{fg=white,bg=pri}
-\setbeamercolor*{palette secondary}{fg=white,bg=靛蓝}
-\setbeamercolor*{palette tertiary}{fg=海棠红,bg=ter}
-
-\setbeamercolor{alerted text}{fg=ale}
-\setbeamercolor*{block title}{bg=pri!30!white}
-
-\mode<all>
+% \definecolor{ale}{HTML}{FF4E27}
 
 
-\setCJKmainfont{FZBIAOYSK.TTF}[
-    ItalicFont = HYKaiTi_GB18030Super.ttf,
-    BoldFont = FZZCYSJW.TTF,
-    StylisticSet=1,
-]
-\setmainfont{MinionPro}[
-    Extension = .otf,
-    Ligatures={TeX, Common},
-    Numbers={OldStyle, Proportional},
-    UprightFont = *-regular,
-    ItalicFont = *-It,
-    BoldFont = *-Semibold,
-    Kerning=On,
-    SizeFeatures = {
-        {Size = -6, Font = *-capt, BoldFont = *-Semiboldcapt},
-        {Size = 6-8.4, Font = *-regular, BoldFont = *-Semiboldregular},
-        {Size = 8.4-12, Font = *-subh, BoldFont = *-Semiboldsubh},
-        {Size = 12-, Font = *-disp, BoldFont = *-Semibolddisp}
-    },
-    SlantedFeatures = {Font = *-regular, FakeSlant = .15},
-    BoldSlantedFeatures = {*-Semibold, FakeSlant = .15}
-]
-\setsansfont{Alegreya Sans Light}
-\setCJKsansfont[Scale = MatchUppercase]{Noto Sans CJK SC Light}
+
+% \setbeamercolor{title separator}{fg=靛蓝}
+% \setbeamercolor{author}{fg=靛青}
+% \setbeamercolor{institute}{fg=靛青}
+% \setbeamercolor{date}{fg=靛青}
+
+% \setbeamercolor*{palette primary}{fg=white,bg=pri}
+% \setbeamercolor*{palette secondary}{fg=white,bg=靛蓝}
+% \setbeamercolor*{palette tertiary}{fg=海棠红,bg=ter}
+
+% \setbeamercolor{alerted text}{fg=ale}
+
+% \mode<all>
+
+\setCJKmainfont{Noto Serif CJK SC Medium}[
+    BoldFont=Noto Serif CJK SC Bold,
+    ItalicFont = 楷体,
+    Script=CJK Ideographic, Language=Chinese Simplified
+    ]
+\setCJKsansfont{Sarasa Fixed Slab SC}
+\setCJKmonofont[AutoFakeSlant]{Sarasa Fixed Slab SC}
+
+\setmainfont{MinionPro-Subh}[BoldFont = MinionPro-BoldSubh, Letters = Uppercase]
+\setsansfont{FiraGO Book}[Letters = Uppercase]
+\setmonofont[Scale=.95,  Letters = Uppercase, BoldFont=Victor Mono Bold]{Victor Mono Medium}
+
+\newfontfamily\tocsans{FiraGO ExtraLight}
+\newCJKfontfamily\tocsansCJK{Sarasa Fixed Slab SC Light}
+\newCJKfontfamily\NotoSerifCJKTC{Noto Serif CJK TC Medium}
 
 
+    
+\setmathfont[version = ltm]{NewCMMath-Regular.otf}
 \setmathfont{MinionMath-Subh.otf}
 [   
     SizeFeatures = {
@@ -140,78 +163,256 @@ $_{\textstyle\varepsilon}$%
         {Size = 13-, Font = MinionMath-BoldSubh.otf},
     },
 ]
-\setmathfont[range={up/Greek,"2211, "220F,cal}]{euler.otf}
-\setmathfont[range={bfsfit/{greek, Greek},frak,scr}]{Garamond-Math.otf}
-\setmathfont[range={"222B,"222C,"222D},StylisticSet ={7,9}]{Garamond-Math.otf}
-\setmathfont[range={}]{MinionMath-Regular.otf}
-
+\setmathfont[range={sfup,sfit,bfsfup,bfsfit}]{Garamond-Math.otf}
+\setmathfont[range={up/Greek,"2211, "220F}]{euler.otf}
+\setmathfont[range={cal,frak,bfcal,bffrak}]{euler.otf}
+\setmathfont[range={bfsfit/{greek, Greek},scr,bfscr}]{Garamond-Math.otf}
+\setmathfont[range={"222B,"222C,"222D,"2A0C, },StylisticSet ={7,9}]{Garamond-Math.otf}
+\setmathfont[range={}]{MinionMath-Subh.otf}
 
 \DeclareGraphicsExtensions{.eps,.ps,.jpg,.bmp,.png}
 
 
-\title{实用主义家用 \LaTeX{} 入门}
-\subtitle{\LaTeX{} \textit{for} Pragmatists}
-\author{Innocent, Panadol}
-\date{\today}
-\titlegraphic{\qrcode[hyperlink, height=1.6cm]{https://github.com/InnocentFIVE/LaTeX-Lecture-SPS-and-Duxing}}
-
-\usefonttheme{serif,professionalfonts}
-
-
-
-\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{title}{size=\huge, series=\bfseries}
 \setbeamerfont*{subtitle}{size=\large, shape=\itshape}
 \setbeamerfont{section title}{size=\Large, series=\bfseries}
-\setbeamerfont{frametitle}{size=\small, series=\bfseries}
-\setbeamerfont{author}{series=\scshape}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
 \setbeamerfont{caption}{size=\footnotesize, series=\bfseries}
 \setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
 \setbeamerfont{footnote}{size=\tiny}
+\setbeamerfont{author}{size=\small, shape=\scshape}
+\setbeamerfont{institute}{size=\tiny}
+\setbeamerfont{date}{size=\footnotesize}
 \setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{block title}{size=\small, series=\sffamily}
+
 \setbeamertemplate{title}{%
-\raggedleft
-\linespread{1}%
-\inserttitle
-\hspace*{1.2cm}\par
-\vspace*{0.5em}}
+    \linespread{1}%
+    \inserttitle
+    \hspace*{1.2cm}\par
+    \vspace*{0.5em}}
+\setbeamertemplate{date}{%
+    \linespread{1}%
+    \hspace*{0cm}\insertdate\par
+    \vspace*{1.65em}}
+\setbeamertemplate{author}{%
+    \linespread{1}%
+    \hspace*{0cm}\insertauthor\par}
+\setbeamertemplate{institute}{%
+    \linespread{1}%
+    \hspace*{0cm}\insertinstitute\par
+    \vspace*{0.5em}}
 \setbeamertemplate{subtitle}{%
-\raggedleft
-\insertsubtitle
-\hspace*{1.2cm}\par
-\vspace*{0.5em}}
+    \insertsubtitle
+    \hspace*{1.2cm}\par
+    \vspace*{0.5em}}
 \setbeamertemplate{title page}{%
-\begin{minipage}[b]{\textwidth}
-\usebeamertemplate*{title graphic}
-\usebeamertemplate*{title}
-\usebeamertemplate*{subtitle}
-\usebeamertemplate*{title separator}
-\usebeamertemplate*{author}
-\usebeamertemplate*{date}
-\usebeamertemplate*{institute}
-\vfill
-\end{minipage}}
+    \begin{minipage}[b]{\textwidth}
+        \usebeamertemplate*{title}
+        \usebeamertemplate*{subtitle}
+        \usebeamertemplate*{title separator}
+        \usebeamertemplate*{title graphic}
+        \usebeamertemplate*{author}
+        \usebeamertemplate*{date}
+        \usebeamertemplate*{institute}
+        \vfill
+    \end{minipage}}
 \setbeamertemplate{title graphic}{%
-\vbox to 0pt {\smash{\raisebox{-128pt}{\inserttitlegraphic}}}%
-\nointerlineskip}
+    \vbox to 0pt {\hfill\smash{\raisebox{-1cm}{\inserttitlegraphic}}}%
+    \nointerlineskip}
 \setbeamertemplate{frame numbering}{\zhnumber[style=Financial]{\insertframenumber}}
 \setbeamertemplate{caption}{\parbox{\textwidth}{\centering\insertcaption}\par}
 \setbeamertemplate{bibliography item}[text]
+\setbeamerfont{bibliography item}{size=\fontsize{6}{8}}
+\setbeamerfont{bibliography entry author}{size=\fontsize{6}{8}}
+\setbeamerfont{bibliography entry title}{size=\fontsize{6}{8}}
+\setbeamerfont{bibliography entry location}{size=\fontsize{6}{8}}
+\setbeamerfont{bibliography entry note}{size=\fontsize{6}{8}}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white}
+
+\AtBeginEnvironment{theorem}{\setbeamercolor{block title}{fg=white}}
+\AtBeginEnvironment{axiom}{\setbeamercolor{block title}{fg=white}}
+\AtBeginEnvironment{example}{\setbeamercolor{block title}{fg=white}}
+\AtBeginEnvironment{block}{\setbeamercolor{block title}{fg=white}}
+
+\setbeamertemplate{section in toc}{\vbox{\sffamily\tocsans\tocsansCJK\inserttocsection}\par\medskip}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+\setbeamercolor*{block title}{bg=海棠红}
+\setbeamercolor{normal text}{fg=黑色}
+\setbeamercolor{alerted text}{fg=酡红}
+\setbeamercolor{example text}{fg=靛蓝}
+
+\title{实用主义家用 \LaTeX{} 入门}
+\subtitle{\LaTeX{} \textit{for} Pragmatists}
+\author{Innocent, Panadol}
+\institute{中山大学\quad 笃行工作室 \textit{\&} SPS 物理协会}
+\date{二〇二三年十二月八日}
+\titlegraphic{%
+\begin{minipage}{1.6cm}
+    \centering\scriptsize
+    \qrcode[hyperlink, height=1.6cm]{https://github.com/InnocentFIVE/LaTeX-Lecture-SPS-and-Duxing}\smallskip
+
+    GitHub 链接
+\end{minipage}\kern\ccwd
+\begin{minipage}{1.6cm}
+    \centering\scriptsize
+    \qrcode[hyperlink, height=1.6cm]{https://qm.qq.com/q/6vdDIExV0Q}\smallskip
+
+    QQ 交流群
+\end{minipage}}
+
+\colorlet{keyword}{松柏绿}
+\colorlet{comment}{漆黑!50}
+\colorlet{texcs}{妃色}
+\colorlet{emph1}{靛青}
+\colorlet{emph2}{琥珀}
+\colorlet{emphbig}{酡颜}
+\colorlet{emphBig}{酡颜!80!漆黑}
+\colorlet{emphbigg}{酡颜!60!漆黑}
+\colorlet{emphBigg}{酡颜!40!漆黑}
+\colorlet{inline}{苍色!80!靛青!70!漆黑}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\beamer@tableofcontents}{%
+\vspace *{-.5em}}{}{}{}
+\patchcmd{\beamer@sectionintoc}{\def \beamer@breakhere {\\}}{\def \beamer@breakhere {}}{}{}
+\patchcmd{\beamer@sectionintoc}{\ifx \beamer@toc@ooss \beamer@hidetext \vskip 1.5em \else \vfill \fi}{}{}{}
+\patchcmd{\beamer@sectionintoc}{\hbox}{}{}{}
+\patchcmd{\beamer@sectionintoc}{\vbox}{}{}{}
+\AddToHook{cmd/tableofcontents/before}{\mbox{}\vskip-\baselineskip}
+\setlength{\metropolis@progressonsectionpage@linewidth}{4pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
 
 
-\setbeamertemplate{blocks}[rounded][shadow=true]
-\setbeamertemplate{section in toc}{{\kern\ccwd\sffamily\inserttocsection}\par}
+\lstdefinestyle{style@latex}{
+    language     = [latex]TeX,
+    alsoletter   = {*},
+    keywordstyle = \bfseries\color{keyword},
+    commentstyle = \itshape\color{comment},
+    texcsstyle   = *\color{texcs},
+    emphstyle    = [1]\itshape\color{emph1},
+    emphstyle    = [2]\color{emph2},
+    emphstyle    = [11]\color{emphbig},
+    emphstyle    = [12]\color{emphBig},
+    emphstyle    = [13]\color{emphbigg},
+    emphstyle    = [14]\color{emphBigg},
+}
+\lstdefinestyle{style@inline}{
+  basicstyle   = \ttfamily\color{inline},
+  keepspaces   = true,
+}
+\lstdefinestyle{style@pkg}{
+  basicstyle   = \sffamily\color{inline},
+  keepspaces   = true,
+}
+\lstnewenvironment{texcode}[1][]{\lstset{
+  style        = style@latex,
+  escapeinside = {\%*}{*)},
+  morekeywords = {\documentclass,\usepackage,\begin,\end},
+  basicstyle   = \footnotesize\ttfamily,
+  basewidth    = .57\ccwd,
+  literate     = 
+    {&}{{\textcolor{蔚蓝!80!blue}{\&}}}1
+    {$}{{\textcolor{粉红}{\$}}}1,
+    #1}}{}
+\lstMakeShortInline[style=style@inline]|
+
+\newcommand{\pkg}[1]{\href{https://ctan.org/pkg/#1}{\textsf{\addfontfeatures{RawFeature=-case}#1}}}
 
 
-\setlist[itemize]{label = $\bullet$}
+\ExplSyntaxOn
+\xeCJK_new_class:n { PoZheHao }
+\__xeCJK_save_CJK_class:n { PoZheHao }
+\xeCJK_declare_char_class:nn { PoZheHao } { "2014 }
+\seq_map_inline:Nn \g__xeCJK_class_seq
+  {
+    \str_if_eq:nnF {#1} { PoZheHao }
+      {
+        \xeCJK_copy_inter_class_toks:nnnn { PoZheHao } {#1} { FullRight } {#1}
+        \xeCJK_copy_inter_class_toks:nnnn {#1} { PoZheHao } {#1} { FullRight }
+      }
+  }
+\ExplSyntaxOff
 
+\newcommand{\link}[1]{\href{#1}{\faLink}}
+
+
+
+
+\newtheorem{axiom}{公理}
+
+
+\newcommand{\XeLaTeX}{\hologo{Xe}\kern-.13em\LaTeX{}}
+\newcommand{\pdfLaTeX}{pdf\LaTeX{}}
+\newcommand{\LuaLaTeX}{Lua\LaTeX{}}
+\newcommand{\BibTeX}{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em\TeX{}}
+\NewDocumentCommand{\sectionwithabstract}{o m o}{%
+\begin{frame}[noframenumbering]
+    \thispagestyle{empty}
+	\centering
+	\IfValueTF{#1}{\section[#1]{#2}}{\section{#2}}
+    \vskip-.5\baselineskip
+	\IfValueT{#3}{\begin{minipage}[t][0pt][t]{22em}\footnotesize
+		#3
+	\end{minipage}}
+	\vskip-1.5\baselineskip
+	\vskip-\parskip
+	\vskip-6pt
+\end{frame}%
+}
+\NewDocumentCommand{\DifficultyOfEditor}{m m m m}{%
+	\Large\makebox[#1\ccwd][r]{\fontspec{RevueEF.otf}#2}\kern\ccwd #3\par
+    \hspace*{#1\ccwd}\kern\ccwd\footnotesize #4\par%
+}
+
+\newcommand{\JPtext}[1]{{\addCJKfontfeatures{Language=Japanese}#1}}
+
+\usepackage{fbox}
+\newcommand*\ideographicbaseline{-0.12}
+\newcommand*\ccbox[1][1]{%
+    \smash{%
+    \rlap{%
+        \color{gray}%
+        \setlength\fboxrule{0.4pt}%
+            \setlength\fboxsep{-.5\fboxrule}%
+            \fbox{%
+                \rule[\ideographicbaseline\ccwd]{0pt}{\ccwd}%
+                \rule{#1\ccwd}{0pt}%
+            }% 
+        }%
+    }%
+    \kern#1\ccwd
+}
 \begin{document}
 \maketitle
-\makeatletter
+
 
 \begin{frame}
-
+	\begin{columns}[t]
+		\begin{column}{.3\textwidth}
+			\par\medskip
+			\Huge\hfill\hbox{\smash{\parbox[b]{\ccwd}{\linespread{1}\selectfont 目录~\smash{\usebeamercolor[fg]{alerted text}\rule[-.12\ccwd]{.4pt}{2.12\ccwd}}}}}
+		\end{column}
+		\begin{column}{.65\textwidth}
+			\tableofcontents
+		\end{column}
+	\end{columns}
 \end{frame}
 
+\input{include/Former.tex}
+
+\input{include/Introduction.tex}
+\input{include/Math.tex}
+\input{include/Structure.tex}
+\input{include/Debugging.tex}
+
+\input{include/Bonus.tex}
+
+
+\begin{frame}[standout]
+    \Huge\ttfamily\textbackslash end\{document\}
+\end{frame}
 \end{document}
-
-

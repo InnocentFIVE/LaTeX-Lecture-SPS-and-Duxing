@@ -1,0 +1,305 @@
+% \begin{frame}[noframenumbering]
+% 	\thispagestyle{empty}
+% 	\centering
+% 	\section{数学公式}
+% 	\vskip-.5\baselineskip
+% 	\begin{minipage}[t][0pt][t]{22em}\footnotesize
+% 		很多常见的公式服务依赖于一些轻量级渲染引擎，比如MathJax、KaTeX．但是它们实际上使用的是\LaTeX{}语法变种，也就是说并没有使用\LaTeX{}后端．所以不要期望有完全一致的输出．
+% 	\end{minipage}
+% 	\vskip-1.5\baselineskip
+% 	\vskip-\parskip
+% 	\vskip-6pt
+% \end{frame}
+
+\sectionwithabstract{数学公式}[%
+	很多常见的公式服务依赖于一些轻量级渲染引擎，比如MathJax、KaTeX．但是它们实际上使用的是\LaTeX{}语法变种，也就是说并没有使用\LaTeX{}后端．所以不要期望有完全一致的输出．%
+]
+
+
+\begin{frame}[fragile]
+	\frametitle{如何在数学环境下输入中文}
+	\begin{itemize}
+		\item<+-> 想要在 \LaTeX{} 输入中文，直接输入是做不到的，最有性价比的方法是使用 |\text{...}|，这需要调用 \pkg{amsmath} 宏包：
+			|\[\hbar=1,\quad \text{真的}.\]|
+			\[\hbar=1,\quad \text{真的}.\]
+		\item<+-> 数学环境中的空格会被忽略，但 |\text{...}| 中的不会．
+			\begin{itemize}
+				\item |$A \text{开集}$|：$A\text{开集}$；
+				\item |$A\text{ 开集}$|：$A\text{ 开集}$．
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{数学环境的结构}
+	\begin{itemize}
+		\item 数学环境的结构分为以下几种：
+		      \begin{itemize}
+			      \item 原子．如$A$, $\Delta $, $f$之类；
+			      \item 开闭结构．如$($, $]$, $\langle$之类；
+			      \item 算子．如$\sin$, $\tan$之类，最主要的特征是\alert{正体}；
+			      \item 大算子．如$\sum$, $\bigoplus$, $\iiiint$之类；
+			      \item 标点．基本的逗号，分号和句号；
+			      \item 关系符或者二元算符．$<$, $+$, $\to$之类．
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{数学环境的细节（一）}
+	\begin{itemize}
+		\item<+-> 括号．大括号在 \LaTeX{} 中起分组作用，输入应用 |\{|, |\}|，绝对值可以用 \lstinline[style=style@inline]'|...|'，范数可以用 \lstinline[style=style@inline]'\|...\|'．
+			\[\{A\} = \|\Psi \| + \vert x\vert.\]
+		\item<+-> 大大大大大括号．
+			\begin{itemize}
+				\item 用 |\left|, |\right| 是最省事的方法：
+				      \begin{columns}
+					      \begin{column}{.58\textwidth}
+						      \input{include/verb/LeftRight.tex}
+					      \end{column}
+					      \begin{column}{.35\textwidth}
+						      \[\left(1, \sum_{n\geqslant 1} \frac{1}{n^2} \right] \]
+					      \end{column}
+				      \end{columns}
+				\item 手动解决方案：|\big|, |\Big|, |\bigg|, |\Bigg| 四挡．
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{数学环境的细节（二）}
+	\begin{itemize}
+		\item<+-> 张量．可以用 |tensor| 宏包．|\tensor{\Lambda }{^\mu _\sigma }| 而不是 |\Lambda ^\mu _\sigma|：
+			\[\tensor{\Lambda }{^\mu _\sigma }\neq \Lambda ^\mu _\sigma.\]
+		\item<+-> 超大根式可以用 |^{p/q}| 之类描述：
+			\[
+				\sqrt[3]{\sum_{i=1}^N\frac{1}{(p_i+p_i')^2-m^2}}\qquad \Bigl(\sum_{i=1}^N\frac{1}{(p_i+p_i')^2-m^2}\Bigr)^{1/3}.
+			\]
+		\item<+-> 分式（|\frac{分子}{分母}|）．在行间或角标请使用 |a/b|．你也不想遇到这种吧：\onslide<+->
+			\begin{gather*}
+				\Bigl(x+\frac{\mathrm e}{\mathrm e-1}\Bigr)\mathrm e^{\frac{x^{\frac{\mathrm e}{\mathrm e-1}}}{\mathrm e-1}},\quad
+				\overline{E} = \frac{\int_0^\infty E \exp (-E/(k_{\mathrm  B}T))\d E}{\int_0^\infty \exp (-E/(k_{\mathrm  B}T))\d E} = k_{\mathrm B}T.
+			\end{gather*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+	\[\Bigl(x+\frac{\mathrm e}{\mathrm e-1}\Bigr)\exp \Bigl( \frac{x^{\mathrm e / (\mathrm e-1)}}{\mathrm e-1}\Bigr).\]
+	\medskip
+	\[\overline{E} = \int_0^\infty E \exp \Bigl(-\frac{E}{k_{\mathrm B}T}\Bigr)\d E\biggm/\!\int_0^\infty \exp \Bigl(-\frac{E}{k_{\mathrm B}T}\Bigr)\d E = k_{\mathrm B}T.\]
+\end{frame}
+
+\begin{frame}[fragile]{数学环境的细节（三）}
+	\begin{itemize}
+		\item<+-> 数学环境下的空格（还记得吗？数学环境下一般空格无效）\footnote{值得一提的是，在2020-10-01以后，或者调用 \pkg{amsmath} 后，也可以在文本模式下使用这些命令．}．细（|\,|）、中（|\:|, |\>|）、粗（|\;|）：|\quad|, |\qquad|：
+			\begin{center}
+				\begin{tblr}{ll}
+					\fakeverb{\,}     & $D\,X     $ \\
+					\fakeverb{\>}     & $D\>X     $ \\
+					\fakeverb{\;}     & $D\;X     $ \\
+					\fakeverb{\quad}  & $D\quad X $ \\
+					\fakeverb{\qquad} & $D\qquad X$ \\
+				\end{tblr}
+			\end{center}
+        \item<+-> 不建议在行内插入过于复杂的公式．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{数学字体的切换}
+	\begin{itemize}
+		\item 数学字体的切换．最好选择 \pkg{amsfonts} 宏包，更现代的选择是 \pkg{unicode-math} 宏包．
+		      \begin{itemize}
+			      \item<1-> 主要处理：|\math...{}| 和 |\sym...{}|（\pkg{unicode-math} 宏包）；
+			      \item<2-> 粗体：|\mathbf|, |(\sym)bfit|, |\boldsymbol|;
+			      \item<2-> 花体：|\mathcal|, |\mathscr|（需要一些花体宏包，如 \pkg{mathalpha}）；
+			      \item<2-> 哥特体和黑板粗体：|\mathfrak|, |\mathbb|.
+			      \item<2-> 但是，数学字体这些东西并不是从天上掉下来的．正如前文所言，数学环境调用的字体与正文\alert{不同}，因此不受正文字体环境影响．
+			      \item<3-> \fontspec{Times New Roman}{Times New Roman}：使用 \pkg{newtx} 宏包．
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+% \begin{frame}[fragile]
+% 	\frametitle{数学环境的细节（二）}
+% 	\begin{itemize}
+% 		\item 矩阵．在调用 \pkg{amsmath} 宏包的情形下，使用 |pmatrix| 环境，其中 |&| 是分列，|\\| 是换行：
+% 	\end{itemize}
+% 	\begin{columns}
+% 		\begin{column}{.45\textwidth}
+% 			\input{include/verb/Matrix.tex}
+% 		\end{column}
+% 		\begin{column}{.45\textwidth}
+% 			\[
+% 				\begin{pmatrix}
+% 					1 & 0 & 0  & 0 \\
+% 					0 & 0 & −1 & 0 \\
+% 					0 & 1 & 0  & 0 \\
+% 					0 & 0 & 0  & 0 \\
+% 				\end{pmatrix}.
+% 			\]
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
+
+
+
+\begin{frame}[fragile]{更高更妙的物理（一）}
+	\begin{itemize}
+		\item<+-> Dirac 符号（\pkg{physics2} 宏包）：
+			\[A^\dagger = \sum_i \lambda _i^*\ketbra{u_i}{v_i}.\]
+			（有人曾经用$\vert \phi >$来表示$\ket{\phi }$，我不说是谁）
+		\item <+->合理的单位制（\pkg{siunitx} 宏包）．
+		      \begin{itemize}
+			      \item |\hbar=1.0545\times 10^{−34}J\cdot s|: $\hbar=1.0545\times 10^{−34}J\cdot s$.
+			      \item |\hbar=\qty[options...]{1.0545e-34}{J.s}|: $\hbar=\qty[inter-unit-product = \ensuremath{{}\cdot{}}]{1.0545e-34}{J.s}$.
+		      \end{itemize}
+		\item<+-> 微分算子分不清？是 $\mathscr D$, $d$ 还是 $\mathbb d$ 呢？
+			\begin{itemize}
+				\item 古老的国标 GB/T~3012.11--93 成为推荐性，用什么都是可以哒！
+				\item \pkg{fixdif} 宏包，更方便考虑间距: $\int^d \frac{\d D(d)}{\d d}\d d = D(d)+C$.
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{更高更妙的物理（二）}
+	\begin{itemize}
+		\item<+-> Feynman 图（\pkg{tikz-feynman} 宏包）．
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\begin{feynman}
+				\vertex                         (i1) {\(e^{-}\)};
+				\vertex [below right=2cm of i1] (a);
+				\vertex [below=1.5cm of a]      (b);
+				\vertex [below left=1.5cm of b] (f1){\(e^{+}\)};
+
+				\vertex [right=3cm of i1]       (i2) {\(e^{+}\)};
+				\vertex [right=3cm of f1]       (f2) {\(e^{-}\)};
+
+
+				\diagram* {
+				(i1) -- [fermion] (a),% e-
+				(a) -- [boson, edge label'=\(p\)](b),
+				(b) -- [fermion](f1),% e+
+
+				(i2) -- [fermion] (b),
+				(a) -- [fermion] (f2)
+				};
+			\end{feynman}
+		\end{tikzpicture}
+		\caption{\addfontfeatures{RawFeature=-case}\figurename\thefigure: u-channel}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}[standout]
+	\small
+	\fakeverb{bm = \boldsymbol{...}}、\fakeverb{cal = \mathcal{...}}，以此类推．
+
+	\begin{tblr}{XXXX}
+		\fakeverb{rm}  & \fakeverb{bf}       & \fakeverb{sf}   & \fakeverb{bm + sf}   \\
+		               & \fakeverb{bm}       & \fakeverb{-}    & \fakeverb{-}         \\
+		\fakeverb{cal} & \fakeverb{bm + cal} & \fakeverb{bb}   & \fakeverb{-}         \\
+		\fakeverb{scr} & \fakeverb{-}        & \fakeverb{frak} & \fakeverb{bm + frak} \\
+	\end{tblr}
+	\LARGE
+	\[
+		\mathfontlist{D}\qquad \mathfontlist{x}
+	\]
+	\nonumberfootnote{字体：Minion Math, Euler, Garamond Math.}
+\end{frame}
+
+\begin{frame}[fragile]{多行公式与公式对齐（一）}
+	|align| 环境或 |gather| 环境．在调用 \pkg{amsmath} 宏包的情形下，也可以用 |aligned| 和 |gathered|．同矩阵一样，|&| 分列，|\\| 对齐，用 |\tag| 和 |\notag| 控制标号．\pause
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\vskip.5\ccwd
+			\input{include/verb/Align.tex}
+		\end{column}
+		\pause
+		\begin{column}{.42\textwidth}
+			\begin{align}
+				\hbar  = c & = 1           \\
+				\notag     & = 137 \alpha  \\
+				\tag{42}   & = \hat\delta.
+			\end{align}
+		\end{column}
+	\end{columns}
+	\pause
+	想要去掉所有标号可以用\CJKsout{共轭算符} |*| 环境：
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\vskip.5\ccwd
+			\input{include/verb/Gather.tex}
+		\end{column}
+		\pause
+		\begin{column}{.42\textwidth}
+			\begin{gather*}
+				p(E = n\hbar\omega)
+				= \frac{e^{−\beta n\hbar\omega}}{Z}; \\
+				Z = \frac{1}{1 − e^{−\beta\hbar\omega}}.
+			\end{gather*}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{多行公式与公式对齐（二）}
+	当多行公式只需一个标号时，可以用 |equation| 套上 |aligned| 或 |gathered| 环境解决：
+	\begin{columns}
+		\begin{column}{.6\textwidth}
+			\vskip.5\ccwd
+			\input{include/verb/Aligned.tex}
+		\end{column}\pause
+		\begin{column}{.35\textwidth}
+			\color{black}
+			\begin{equation}
+				\begin{aligned}
+					\partial_t p & = -\partial_{ x}H, \\
+					\d_t x       & = \partial_{ p}H.
+				\end{aligned}
+			\end{equation}
+		\end{column}
+	\end{columns}
+	\pause
+	请不要使用 |\[...\] \[...\] \[...\]|！更多需求可以使用 |alignat| 和 |flalign| 等，总有一款适合你．
+\end{frame}
+
+\begin{frame}[fragile]{多行公式与公式对齐（三）}
+	如果要对很多子公式进行主–子编号， 可以用 |subequations| 环境搭配 |align| 和 |gather| 使用：\pause
+	\input{include/verb/Subequations.tex}\pause
+	\begin{subequations}
+		\begin{gather}
+			\symcal{H}_{\textup {ac}}
+			\coloneqq \set{x\in \symcal{H}\given \mu _x \ll m},                                                                \\
+			\symcal{H}_{\textup {sc}}
+			\coloneqq \set{x\in \symcal{H}\given \textup{\(\mu _{x,x} \mathrel\bot m\) but \(\mu_{x,x}(\{\textup{pt}\})=0\)}}, \\
+			\symcal{H}_{\textup {pp}}
+			\coloneqq \set{x\in \symcal{H}\given \textup{\(\lambda \mapsto \braket[1]{E_\lambda x,x}\) is discrete}},                                      \\
+			\symcal{H} =\symcal{H}_{\textup {ac}}\oplus\symcal{H}_{\textup {sc}}\oplus\symcal{H}_{\textup {pp}}.
+		\end{gather}
+	\end{subequations}
+\end{frame}
+
+\begin{frame}[fragile]{符号}
+	\begin{itemize}
+		\item 明确一点，大多数（抽象的）符号都只是编码，也即：\pause
+		      \begin{itemize}
+			      \item |U+1D510|：$\symfrak M$；
+			      \item |U+02B32|：$\leftarrowonoplus$；
+			      \item |U+060A8|：您；
+			      \item ……
+		      \end{itemize}
+		      具体显示效果来源于\alert{字体}，不同的字体对同样的符号显示效果可能是不一样的．\pause
+		\item 因此「符号」不可能只用一个按钮或者一个命令就可以从天而降：需要字体；需要 \LaTeX{} 调用字体；需要语义化的命令而不是直接输入编码得到符号……
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{如何寻找符号？}
+	\begin{itemize}
+		\item<1-> 由 \TeX{} 宏包所定义的符号：\emph{The Comprehensive \LaTeX~Symbol List}~\link{https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}；
+		\item<2-> \pkg{unicode-math} 宏包使用者：\emph{万有Unimath}~\link{https://mirror-hk.koddos.net/CTAN/macros/unicodetex/latex/unicode-math/unimath-symbols.pdf}；
+		\item<3-> 仅仅知道形状？\emph{Detexify}~\link{http://detexify.kirelabs.org/classify.html}；
+		\item<4-> 我要苹果商标 \faApple！这个字形没有收录在Unicode标准中，换言之，只有特殊的字体才会有（亦即，在字体的私有区中制作），可见 \pkg{fontawesome5} 或者 \pkg{simpleicons} 宏包；
+		\item<5-> emoji（\twemoji[height = .88\ccwd]{mahjong}）？emoji 也有对应的 Unicode 规范，但\hologo{XeTeX} 对彩色字体支持性不高，可以用 Lua\kern-.2ex\TeX{} 或者 \pkg{twemoji} 宏包；
+		\item<6-> 用 |\%|、|\$|、|\&|、|\textbackslash| 得到~\%、\$、\&、\textbackslash{}；
+	\end{itemize}
+\end{frame}

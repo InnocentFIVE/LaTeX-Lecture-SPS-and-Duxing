@@ -1,0 +1,19 @@
+\begin{texcode}[basicstyle=\scriptsize\ttfamily, breaklines=true, moretexcs={\toprule,\midrule,\bottomrule,\qty}, emph={[1]table,tblr},emph={[2]tabularray,siunitx,booktabs}]
+% \usepackage{tabularray}   % 个人喜好
+% \usepackage{siunitx}      % 排版单位
+% \UseTblrLibrary{booktabs} % 三线表
+\begin{table}
+\centering
+\caption{...}
+\label{%*\textcolor{蔚蓝!80!黑色}{tab:masses-particles}*)}
+\begin{tblr}{lll}
+    \toprule
+    Particle    & Mass               \\
+    \midrule
+    electron    & \qty{.5}{MeV}      \\
+    ...         & ...                \\
+    Higgs Boson & \qty{125}{GeV}     \\
+    \bottomrule
+\end{tblr}
+\end{table}
+\end{texcode}

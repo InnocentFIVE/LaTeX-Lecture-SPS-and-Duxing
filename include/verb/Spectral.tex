@@ -1,0 +1,13 @@
+\begin{texcode}[basicstyle=\fontsize{7.5}{9}\selectfont\ttfamily, emph={[1]document}, emph={[2]article,amsmath,fixdif}, emph={[12]\Bigl,\Bigr}, emph={[13]\biggl,\biggr}, breaklines = true, moretexcs = {\key}]
+\documentclass{article}                 % 导言区. 设置文档样式.
+\usepackage{amsmath}
+\usepackage{fixdif}                     % 正体微分算子 \d.
+\newcommand{\key}[1]{\textbf{#1}}       % 定义新命令.
+\begin{document}
+    \section{The Spectral Theorem}      % 小节标题.
+    If $\mu$ is a \key{%*\textbf{projection-valued measure}*)} on $(X, \Omega)$ with values in $\mathsf B(\mathcal H)$, $\psi$ is an element of $\mathcal H$, then we can construct a positive real-valued measure $\mu_\psi$ from $\mu$ by setting $\mu_\psi(E) = \langle\psi, \mu(E)\psi\rangle$, for each measurable set $E$.
+
+    To motivate the following definition, consider integration of a \emph{%*\textcolor{蔚蓝!50!blue}{\emph{bounded}}*)} measurable function $f$ against a projection-valued measure $\mu$. Since the integral is multiplicative and complex-conjugation of a function corresponds to adjoint of the operator, we have
+    \[\biggl\| \Bigl(\int_X f \d \mu\Bigr)\psi \biggr\|^2 = \int_X |f|^2 \d \mu_\psi.\]
+\end{document}
+\end{texcode}

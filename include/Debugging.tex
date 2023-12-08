@@ -1,0 +1,111 @@
+\sectionwithabstract{Debugging}[%
+	先花几小看完 \fakeverb{lshort-zh-cn.pdf}（当睡前读物看也行，附录也很重要），初学者遇到的问题大多数是 \fakeverb{lshort-zh-cn.pdf} 可以搞定的，即使\emph{读文档对不读文档的人来说可能是让他们的学习曲线变得陡峭的重要环节}，或者也可以加入LaTeX工作室的交流群．%
+]
+
+\begin{frame}[fragile]{命令行}
+	小心编辑器帮你过滤信息（比如 VS Code 和 LaTeX Workshop）导致用户没看到完整的报错．
+	\begin{itemize}
+		\item<+-> 编辑器按钮要用，命令行操作也要用，这样才算得上健全．
+		      |xelatex -options "your_name.tex"|；
+		\item<+-> 想要一次性编译多次？|latexmk|；
+		\item<+-> 宏包的文档？|texdoc pkg_name|；
+		      \begin{itemize}
+			      \item 我没有安装本地发行版：\link{https://texdoc.org/index.html}；
+			      \item 不想看英文文档？\link{https://github.com/latexstudio/LaTeXPackages-CN}．
+		      \end{itemize}
+		\item<+-> 想要看命令是怎么被定义的？|(la)texdef|、|\show|、|\meaning| 以及 \pkg{show2e} 宏包；
+		\item<+-> 包管理器：|tlmgr|；
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{遇到问题之后（一）}
+    出现问题了——
+	\begin{itemize}
+		\item 我换了好几个模板都出现了问题，因此我把他们所有正常的代码全部放在一块，总共有$\qty{500}{kB}$；
+		\item 再按几次编译按钮，直到编译成功为止；
+		\item \CJKsout{去论坛提问“latex报错为什么？”}．
+	\end{itemize}
+	\pause 更合理的办法：
+	\begin{itemize}
+		\item 先把所有辅助文件删掉，然后编译试试；
+		\item 二分法排查代码，看看能不能用最小的文档复刻报错；
+		      \begin{itemize}
+			      \item 花里胡哨的叫法：最小工作示例（MWE, minimal working example）；
+			      \item 不仅自己可以看清楚些，如果走投无路了想要发论坛求救用更少的代码复现问题会更好．
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{遇到问题之后（二）}
+	\begin{itemize}
+		\item<+-> 看看报错日志：
+		      \input{include/verb/Error.tex}
+		      |Runaway argument?| 是报错类型，|\BIBentryALTinterwordspacing...\ETC.| 是报错的上下文，|! Paragraph...complete.| 是报错原因．
+		\item<+-> 先在 |lshort-zh-cn.pdf| 附录里找有没有适合自己的解决方法，或者在Google、论坛上搜索报错原因，发给ChatGPT也行．
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{遇到问题之后（三）}
+	\begin{itemize}
+		\item<+-> 如果Google、ChatGPT都不管用，那你就可以尝试去论坛提问了！
+		\item<+-> 常用论坛： \CTeX{}临时论坛 \link{https://github.com/CTeX-org/forum}，Stack Exchange \link{https://tex.stackexchange.com/}，知乎 \link{https://www.zhihu.com/}；
+		\item<+-> 提问的姿势水平 \link{https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md}：
+		      \begin{itemize}
+			      \item 提供最小工作示例；
+			      \item 使用描述性语句，谨慎使用（自创的排版）术语，解释涉及具体学科的术语；
+			      \item 除非是付费服务，否则不能要求得到及时的、满意的回应；
+			      \item 提供准确而详细的信息：
+			            \begin{itemize}
+				            \item 介绍自己在做什么、为什么要这么做；
+				            \item 介绍自己是怎么做的，让问题能在他人电脑上复现．
+			            \end{itemize}
+			      \item \alert{别急}，急也没用．
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{参考文献}
+	\newcommand{\BOOK}[1]{\textbf{#1}}
+	\newcommand{\TAG}[1]{[#1]}
+	\newcommand{\URL}[1]{\scalebox{0.92}[1]{\mdseries\url{#1}}}
+	\begin{multicols}{2}
+		\begin{thebibliography}{99}
+			\bibitem{}
+			\textsc{Donald~E.\ Knuth}.
+			\BOOK{The \TeX book: Computers \& Typesetting, volume C} \TAG{M}, 1984.
+			\newblock Addison--Wesley Publishing Company, Boston
+			\bibitem{}
+			刘海洋．
+			\BOOK{\LaTeX{} 入门} \TAG{M}, 2013.
+			\newblock 北京：电子工业出版社
+			\bibitem{}
+			曾祥东．
+			\BOOK{现代 \LaTeX{} 入门讲座} \TAG{EB/OL}, 2022.
+			\newblock \URL{https://github.com/stone-zeng/latex-talk}
+			\bibitem{}
+			张庭瑄．
+			\BOOK{\LaTeX{} 新手上路指南} \TAG{EB/OL}, 2022.
+			\newblock \URL{https://github.com/AlphaZTX/LaTeX-tutorials}
+			\bibitem{}
+			黄晨成．
+			\BOOK{一份其实很短的 \LaTeX{} 入门文档} \TAG{EB/OL}, 2022.
+			\newblock \URL{https://liam.page/2014/09/08/latex-introduction}
+			\bibitem{}
+			\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I} and \textsc{Schlegl E}.
+			\CTeX{} 开发小组~译．
+			\BOOK{一份（不太）简短的 \LaTeXe{} 介绍：或 111 分钟了解 \LaTeXe{}} \TAG{EB/OL}, 2023.
+			\newblock \URL{https://ctan.org/pkg/lshort-zh-cn}
+			\bibitem{}
+			\LaTeX{} project.
+			\BOOK{Learn\LaTeX.org} \TAG{EB/OL}.
+			\newblock \URL{https://www.learnlatex.org}
+			\bibitem{}
+			The Type.
+			\BOOK{孔雀计划：中文字体排印的思路} \TAG{EB/OL}.
+			\newblock \URL{https://www.thetype.com/kongque}
+		\end{thebibliography}
+	\end{multicols}
+	\nonumberfootnote{Beamer 主题：{\fontspec{Fira Sans Medium}\scshape metropolis}，\faCreativeCommons\,\faCreativeCommonsBy\,\faCreativeCommonsSa}
+\end{frame}
